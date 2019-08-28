@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="parent"
+            type="com.squats.moviesapp.screens.model.ParentMovieList" />
+        <variable
+            name="adapter"
+            type="com.squats.moviesapp.adapters.MoviesRecyclerViewAdapter" />
+    </data>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/genre_name_textView"
+        android:textStyle="bold"
+        android:text="@{parent.genreTitle}"
+        android:textSize="16sp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/moviesList_item_recyclerView"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:adapter="@{adapter}"
+        tools:listitem="@layout/movie_list_item"/>
+</LinearLayout>
+</layout>
