@@ -1,8 +1,8 @@
-package com.parshwahotel.parshwahotelapp.repository
+package com.squats.moviesapp.repository
 
 import android.app.Application
-import com.parshwahotel.parshwahotelapp.extentionfunctions.handleNetworkError
-import com.parshwahotel.parshwahotelapp.extentionfunctions.toast
+import com.squats.moviesapp.extentionfunctions.handleNetworkError
+import com.squats.moviesapp.extentionfunctions.toast
 import com.squats.moviesapp.screens.model.MovieDetails
 import com.squats.moviesapp.screens.model.MoviesListResponseModel
 import kotlinx.coroutines.Dispatchers

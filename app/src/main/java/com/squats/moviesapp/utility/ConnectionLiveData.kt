@@ -1,4 +1,4 @@
-package com.parshwahotel.parshwahotelapp.utility
+package com.squats.moviesapp.utility
 
 import android.annotation.TargetApi
 import android.content.BroadcastReceiver

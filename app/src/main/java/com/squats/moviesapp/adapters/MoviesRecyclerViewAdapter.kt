@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.parshwahotel.parshwahotelapp.utility.OtherConstants
+import com.squats.moviesapp.utility.OtherConstants
 import com.squats.moviesapp.R
 import com.squats.moviesapp.databinding.MovieListItemBinding
 import com.squats.moviesapp.screens.model.MoviePosterDetailsResponseModel

@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.parshwahotel.parshwahotelapp.repository.Repository
+import com.squats.moviesapp.repository.Repository
 import com.squats.moviesapp.screens.model.MovieDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,7 +20,7 @@ class MovieDetailsViewModel(val mapplication: Application) : AndroidViewModel(ma
         map.put("i", movieID!!)
         var movieDetails:MovieDetails?=null
         viewModelScope.launch(Dispatchers.IO) {
-                movieDetails=Repository.fetchMovieDetails(map,mapplication)
+                movieDetails= Repository.fetchMovieDetails(map,mapplication)
                 movieDetailsLiveData.postValue(movieDetails)
 
         }

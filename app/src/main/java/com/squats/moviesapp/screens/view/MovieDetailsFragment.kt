@@ -8,13 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.parshwahotel.parshwahotelapp.utility.OtherConstants
+import com.squats.moviesapp.utility.OtherConstants
 
-import com.squats.moviesapp.R
-import com.squats.moviesapp.adapters.GenreRecyclerViewAdapter
 import com.squats.moviesapp.databinding.FragmentMovieDetailsBinding
 import com.squats.moviesapp.screens.viewmodel.MovieDetailsViewModel
-import com.squats.moviesapp.screens.viewmodel.MoviesListViewModel
 
 /**
  * A simple [Fragment] subclass.

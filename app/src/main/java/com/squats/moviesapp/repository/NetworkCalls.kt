@@ -1,7 +1,7 @@
-package com.parshwahotel.parshwahotelapp.repository
+package com.squats.moviesapp.repository
 
 import android.app.Application
-import com.parshwahotel.parshwahotelapp.repository.retrofit.RetrofitClient
+import com.squats.moviesapp.retrofit.RetrofitClient
 import com.squats.moviesapp.screens.model.MovieDetails
 import com.squats.moviesapp.screens.model.MoviesListResponseModel
 

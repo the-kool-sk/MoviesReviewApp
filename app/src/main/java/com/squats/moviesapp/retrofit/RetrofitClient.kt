@@ -1,9 +1,7 @@
-package com.parshwahotel.parshwahotelapp.repository.retrofit
+package com.squats.moviesapp.retrofit
 
 import android.app.Application
-import com.parshwahotel.parshwahotelapp.extentionfunctions.isConnectedToInternet
-import com.parshwahotel.parshwahotelapp.utility.NetworkConstants
-import okhttp3.Cache
+import com.squats.moviesapp.utility.NetworkConstants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

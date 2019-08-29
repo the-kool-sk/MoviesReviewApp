@@ -1,4 +1,4 @@
-package com.parshwahotel.parshwahotelapp.repository.retrofit
+package com.squats.moviesapp.retrofit
 
 import com.squats.moviesapp.screens.model.MovieDetails
 import com.squats.moviesapp.screens.model.MovieListResponseModel

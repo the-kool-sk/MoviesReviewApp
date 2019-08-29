@@ -1,4 +1,4 @@
-package com.parshwahotel.parshwahotelapp.extentionfunctions
+package com.squats.moviesapp.extentionfunctions
 
 import android.content.Context
 import android.util.Log
@@ -6,8 +6,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import android.app.Application
 import android.net.ConnectivityManager
-import com.parshwahotel.parshwahotelapp.repository.Repository
-import com.parshwahotel.parshwahotelapp.utility.NetworkConstants
+import com.squats.moviesapp.repository.Repository
+import com.squats.moviesapp.utility.NetworkConstants
 import com.squareup.moshi.JsonDataException
 import retrofit2.HttpException
 import java.io.IOException
@@ -15,7 +15,6 @@ import java.io.InterruptedIOException
 import java.net.*
 import java.nio.channels.ClosedChannelException
 import javax.net.ssl.SSLException
-import android.R.attr.thumbnail
 import android.util.DisplayMetrics
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

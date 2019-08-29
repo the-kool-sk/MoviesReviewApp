@@ -1,4 +1,4 @@
-package com.parshwahotel.parshwahotelapp.utility
+package com.squats.moviesapp.utility
 
 class OtherConstants{
 

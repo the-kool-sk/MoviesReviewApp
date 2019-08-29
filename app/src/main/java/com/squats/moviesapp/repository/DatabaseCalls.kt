@@ -1,4 +1,4 @@
-package com.parshwahotel.parshwahotelapp.repository
+package com.squats.moviesapp.repository
 
 class DatabaseCalls {
 }

@@ -8,7 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
-import com.parshwahotel.parshwahotelapp.utility.ConnectionLiveData
+import com.squats.moviesapp.utility.ConnectionLiveData
 import kotlinx.android.synthetic.main.activity_main.*
 
 

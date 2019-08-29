@@ -1,14 +1,10 @@
 package com.squats.moviesapp.screens.viewmodel
 
 import android.app.Application
-import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.findNavController
-import com.parshwahotel.parshwahotelapp.repository.Repository
-import com.squats.moviesapp.R
-import com.squats.moviesapp.screens.model.MoviePosterDetailsResponseModel
+import com.squats.moviesapp.repository.Repository
 import com.squats.moviesapp.screens.model.ParentMovieList
 import kotlinx.coroutines.launch
 

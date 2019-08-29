@@ -1,4 +1,4 @@
-package com.parshwahotel.parshwahotelapp.utility
+package com.squats.moviesapp.utility
 
 object NetworkConstants {
     //const val baseUrl: String = "https://api.themoviedb.org/3"
