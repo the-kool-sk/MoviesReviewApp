@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.squats.moviesapp.MainActivity
 import com.squats.moviesapp.extentionfunctions.dpToPx
 import com.squats.moviesapp.extentionfunctions.toast
 import com.squats.moviesapp.utility.ConnectionLiveData
@@ -30,7 +31,7 @@ class MoviesListFragment : Fragment() {
 
     private lateinit var moviesListViewModel: MoviesListViewModel
     private lateinit var binding: FragmentMoviesListBinding
-    private lateinit var connectionLiveData: ConnectionLiveData
+//    private lateinit var connectionLiveData: ConnectionLiveData
     private var exit = false
     private var isCalledFromOnCreated = false
     override fun onCreateView(
@@ -55,7 +56,7 @@ class MoviesListFragment : Fragment() {
         }
         callback.isEnabled = true
 
-        connectionLiveData = ConnectionLiveData(activity!!.applicationContext)
+//        connectionLiveData = ConnectionLiveData(activity!!.applicationContext)
         observeNetworkConnection()
         return binding.root
     }
@@ -75,16 +76,23 @@ class MoviesListFragment : Fragment() {
     }
 
     private fun observeNetworkConnection() {
-        connectionLiveData.observe(this, Observer { isConnected ->
-            isConnected?.let {
-                if (it && !isCalledFromOnCreated) {
-                    downloadList()
-                } else {
-                    isCalledFromOnCreated = false
-                }
 
+        (activity as MainActivity).isConnected.observe(this, Observer {
+            if (it && !isCalledFromOnCreated) {
+                downloadList()
+            } else {
+                isCalledFromOnCreated = false
             }
         })
+//        connectionLiveData.observe(this, Observer { isConnected ->
+//            isConnected?.let {
+//                if (it && !isCalledFromOnCreated) {
+//                    downloadList()
+//                } else {
+//                    isCalledFromOnCreated = false
+//                }
+//            }
+//        })
     }
 
     private fun initObservers() {

@@ -15,9 +15,9 @@ class MovieDetailsViewModel(val mapplication: Application) : AndroidViewModel(ma
 
     fun getMovieDetails(movieID:String?){
         val map: HashMap<String, String> = HashMap()
-        map.put("type", "movie")
-        map.put("apikey", "c0617fee")
-        map.put("i", movieID!!)
+        map["type"] = "movie"
+        map["apikey"] = "c0617fee"
+        map["i"] = movieID!!
         var movieDetails:MovieDetails?=null
         viewModelScope.launch(Dispatchers.IO) {
                 movieDetails= Repository.fetchMovieDetails(map,mapplication)

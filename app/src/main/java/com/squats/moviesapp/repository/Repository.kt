@@ -13,13 +13,12 @@ import kotlinx.coroutines.launch
 object Repository {
 
     suspend fun fetchList(
-        map: HashMap<String, String>,
-        application: Application
-    ): MoviesListResponseModel? {
-        var moviesListResponseModel:MoviesListResponseModel?=null
+            map: HashMap<String, String>,
+            application: Application): MoviesListResponseModel? {
+        var moviesListResponseModel: MoviesListResponseModel? = null
 
         try {
-            moviesListResponseModel= NetworkCalls.getList(map, application)
+            moviesListResponseModel = NetworkCalls.getList(map, application)
         } catch (e: Throwable) {
             handleNetworkError(e, application)
             GlobalScope.launch(Dispatchers.Main) {
@@ -29,10 +28,11 @@ object Repository {
         return moviesListResponseModel
     }
 
-    suspend fun fetchMovieDetails(map: HashMap<String, String>, mapplication: Application): MovieDetails? {
-        var moviesDetails:MovieDetails?=null
+    suspend fun fetchMovieDetails(map: HashMap<String, String>,
+                                  mapplication: Application): MovieDetails? {
+        var moviesDetails: MovieDetails? = null
         try {
-            moviesDetails= NetworkCalls.getMovie(map, mapplication)
+            moviesDetails = NetworkCalls.getMovie(map, mapplication)
         } catch (e: Throwable) {
             handleNetworkError(e, mapplication)
             GlobalScope.launch(Dispatchers.Main) {

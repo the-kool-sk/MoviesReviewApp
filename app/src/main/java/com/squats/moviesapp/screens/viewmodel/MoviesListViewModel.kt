@@ -14,13 +14,14 @@ class MoviesListViewModel(val mapplication: Application) : AndroidViewModel(mapp
     fun getMoviesByGener() {
         val map: HashMap<String, String> = HashMap()
         val parentMovieList: ArrayList<ParentMovieList> = ArrayList()
-        val geners = arrayOf("Animated", "Comedy", "Action", "Horror","Adventure","Spy","Fantasy","War")
-        map.put("type", "movie")
-        map.put("apikey", "c0617fee")
+        val geners =
+            arrayOf("Animated", "Comedy", "Action", "Horror", "Adventure", "Spy", "Fantasy", "War")
+        map["type"] = "movie"
+        map["apikey"] = "c0617fee"
 
         viewModelScope.launch {
             for (gener in geners) {
-                map.put("s", gener)
+                map["s"] = gener
                 val moviesListResponseModel = Repository.fetchList(map, mapplication)
                 parentMovieList.add(ParentMovieList(gener, moviesListResponseModel))
             }
