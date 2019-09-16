@@ -10,6 +10,7 @@ import androidx.activity.addCallback
 import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,7 +39,7 @@ class MoviesListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        moviesListViewModel = ViewModelProviders.of(this).get(MoviesListViewModel::class.java)
+        moviesListViewModel = ViewModelProvider(this).get(MoviesListViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_movies_list, container, false)
         // Inflate the layout for this fragment
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
@@ -92,10 +93,6 @@ class MoviesListFragment : Fragment() {
             if (movies_list_recyclerView.isEmpty() || moviesList_item_recyclerView.isEmpty())
                 binding.data = GenreRecyclerViewAdapter(it)
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
 }
