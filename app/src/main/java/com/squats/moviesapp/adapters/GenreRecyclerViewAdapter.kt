@@ -9,6 +9,7 @@ import com.squats.moviesapp.screens.model.ParentMovieList
 
 class GenreRecyclerViewAdapter(val moviesList: ArrayList<ParentMovieList>) :
     RecyclerView.Adapter<GenreRecyclerViewAdapter.GenreViewHolder>() {
+
     class GenreViewHolder(val binding: MoviesListItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 

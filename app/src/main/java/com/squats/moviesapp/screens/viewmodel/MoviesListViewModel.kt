@@ -8,7 +8,7 @@ import com.squats.moviesapp.repository.Repository
 import com.squats.moviesapp.screens.model.ParentMovieList
 import kotlinx.coroutines.launch
 
-class MoviesListViewModel(val mapplication: Application) : AndroidViewModel(mapplication) {
+class MoviesListViewModel(private val mapplication: Application) : AndroidViewModel(mapplication) {
     var parentMovieListliveData: MutableLiveData<ArrayList<ParentMovieList>> = MutableLiveData()
     var isloading: MutableLiveData<Boolean> = MutableLiveData()
 

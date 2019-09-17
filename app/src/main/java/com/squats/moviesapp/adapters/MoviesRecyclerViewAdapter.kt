@@ -36,7 +36,6 @@ class MoviesRecyclerViewAdapter(var list: List<MoviePosterDetailsResponseModel>?
     }
 
     class MovieViewHolder(var binding: MovieListItemBinding) : RecyclerView.ViewHolder(binding.root)
-
     fun setListener(v: View, movie: MoviePosterDetailsResponseModel) {
         val bundle = Bundle()
         bundle.putString(OtherConstants.BUNDLE_CONSTANT,movie.imdbID)
