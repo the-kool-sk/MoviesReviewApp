@@ -2,25 +2,24 @@ package com.squats.moviesapp.screens.view
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.squats.moviesapp.MainActivity
-import com.squats.moviesapp.extentionfunctions.dpToPx
-import com.squats.moviesapp.extentionfunctions.toast
-
 import com.squats.moviesapp.R
 import com.squats.moviesapp.adapters.GenreRecyclerViewAdapter
 import com.squats.moviesapp.databinding.FragmentMoviesListBinding
+import com.squats.moviesapp.extentionfunctions.dpToPx
 import com.squats.moviesapp.extentionfunctions.gone
+import com.squats.moviesapp.extentionfunctions.toast
 import com.squats.moviesapp.extentionfunctions.visible
 import com.squats.moviesapp.screens.viewmodel.MoviesListViewModel
 import com.squats.moviesapp.utility.MovieItemDecoration
@@ -40,7 +39,7 @@ class MoviesListFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        moviesListViewModel = ViewModelProviders.of(this).get(MoviesListViewModel::class.java)
+        moviesListViewModel = ViewModelProvider(this).get(MoviesListViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_movies_list, container, false)
         // Inflate the layout for this fragment
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
