@@ -10,8 +10,10 @@ import kotlinx.coroutines.launch
 
 class MoviesListViewModel(val mapplication: Application) : AndroidViewModel(mapplication) {
     var parentMovieListliveData: MutableLiveData<ArrayList<ParentMovieList>> = MutableLiveData()
+    var isloading: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getMoviesByGener() {
+        isloading.postValue(true) //Set true to show Progress Bar till fetching data
         val map: HashMap<String, String> = HashMap()
         val parentMovieList: ArrayList<ParentMovieList> = ArrayList()
         val geners =
@@ -25,6 +27,7 @@ class MoviesListViewModel(val mapplication: Application) : AndroidViewModel(mapp
                 val moviesListResponseModel = Repository.fetchList(map, mapplication)
                 parentMovieList.add(ParentMovieList(gener, moviesListResponseModel))
             }
+            isloading.postValue(false) // Hide Progress Bar after data is fetched
             parentMovieListliveData.postValue(parentMovieList)
         }
     }

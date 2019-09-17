@@ -11,18 +11,20 @@ import kotlinx.coroutines.launch
 
 class MovieDetailsViewModel(val mapplication: Application) : AndroidViewModel(mapplication) {
 
-    val movieDetailsLiveData=MutableLiveData<MovieDetails>()
+    val movieDetailsLiveData = MutableLiveData<MovieDetails>()
+    var isloading: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun getMovieDetails(movieID:String?){
+    fun getMovieDetails(movieID: String?) {
+        isloading.postValue(true) //Set true to show Progress Bar till fetching data
         val map: HashMap<String, String> = HashMap()
         map["type"] = "movie"
         map["apikey"] = "c0617fee"
         map["i"] = movieID!!
-        var movieDetails:MovieDetails?=null
-        viewModelScope.launch(Dispatchers.IO) {
-                movieDetails= Repository.fetchMovieDetails(map,mapplication)
-                movieDetailsLiveData.postValue(movieDetails)
-
+        var movieDetails: MovieDetails? = null
+        viewModelScope.launch {
+            movieDetails = Repository.fetchMovieDetails(map, mapplication)
+            isloading.postValue(false) // Hide Progress Bar after data is fetched
+            movieDetailsLiveData.postValue(movieDetails)
         }
     }
 }

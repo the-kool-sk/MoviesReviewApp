@@ -30,16 +30,39 @@ fun Application.toast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
+/**
+ * Extension function on Snackbar
+ */
 fun View.showSnackBar(msgId: String) {
     val snackbar = Snackbar.make(
             this,
             msgId,
-            Snackbar.LENGTH_INDEFINITE
+            Snackbar.LENGTH_LONG
     )
 //    snackbar.setAction("Dismiss") { dismissSnackBar(snackbar) }
     snackbar.show()
 }
 
+/**
+ * Extension function on View to make it Visible
+ */
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+/**
+ * Extension function on View to make it Invisible
+ */
+fun View.invisible() {
+    this.visibility = View.INVISIBLE
+}
+
+/**
+ * Extension function on View to make it's visibility gone
+ */
+fun View.gone() {
+    this.visibility = View.GONE
+}
 
 fun Fragment.log(tag: String, message: String) {
     Log.i(tag, message)

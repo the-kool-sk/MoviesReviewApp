@@ -12,31 +12,30 @@ import kotlinx.coroutines.launch
 
 object Repository {
 
-    suspend fun fetchList(
-            map: HashMap<String, String>,
-            application: Application): MoviesListResponseModel? {
+    suspend fun fetchList(map: HashMap<String, String>,
+                          mApplication: Application): MoviesListResponseModel? {
         var moviesListResponseModel: MoviesListResponseModel? = null
 
         try {
-            moviesListResponseModel = NetworkCalls.getList(map, application)
+            moviesListResponseModel = NetworkCalls.getList(map, mApplication)
         } catch (e: Throwable) {
-            handleNetworkError(e, application)
+            handleNetworkError(e, mApplication)
             GlobalScope.launch(Dispatchers.Main) {
-                application.toast(e.message.toString())
+                mApplication.toast(e.message.toString())
             }
         }
         return moviesListResponseModel
     }
 
     suspend fun fetchMovieDetails(map: HashMap<String, String>,
-                                  mapplication: Application): MovieDetails? {
+                                  mApplication: Application): MovieDetails? {
         var moviesDetails: MovieDetails? = null
         try {
-            moviesDetails = NetworkCalls.getMovie(map, mapplication)
+            moviesDetails = NetworkCalls.getMovie(map, mApplication)
         } catch (e: Throwable) {
-            handleNetworkError(e, mapplication)
+            handleNetworkError(e, mApplication)
             GlobalScope.launch(Dispatchers.Main) {
-                mapplication.toast(e.message.toString())
+                mApplication.toast(e.message.toString())
             }
         }
         return moviesDetails

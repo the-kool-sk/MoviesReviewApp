@@ -16,11 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.squats.moviesapp.MainActivity
 import com.squats.moviesapp.extentionfunctions.dpToPx
 import com.squats.moviesapp.extentionfunctions.toast
-import com.squats.moviesapp.utility.ConnectionLiveData
 
 import com.squats.moviesapp.R
 import com.squats.moviesapp.adapters.GenreRecyclerViewAdapter
 import com.squats.moviesapp.databinding.FragmentMoviesListBinding
+import com.squats.moviesapp.extentionfunctions.gone
+import com.squats.moviesapp.extentionfunctions.visible
 import com.squats.moviesapp.screens.viewmodel.MoviesListViewModel
 import com.squats.moviesapp.utility.MovieItemDecoration
 import kotlinx.android.synthetic.main.fragment_movies_list.*
@@ -31,12 +32,12 @@ class MoviesListFragment : Fragment() {
 
     private lateinit var moviesListViewModel: MoviesListViewModel
     private lateinit var binding: FragmentMoviesListBinding
-//    private lateinit var connectionLiveData: ConnectionLiveData
+    //    private lateinit var connectionLiveData: ConnectionLiveData
     private var exit = false
     private var isCalledFromOnCreated = false
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
 
         moviesListViewModel = ViewModelProviders.of(this).get(MoviesListViewModel::class.java)
@@ -62,8 +63,9 @@ class MoviesListFragment : Fragment() {
     }
 
     private fun downloadList() {
-        if (movies_list_recyclerView.isEmpty() || moviesList_item_recyclerView.isEmpty())
+        if (movies_list_recyclerView.isEmpty() || moviesList_item_recyclerView.isEmpty()) {
             moviesListViewModel.getMoviesByGener()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -97,13 +99,20 @@ class MoviesListFragment : Fragment() {
 
     private fun initObservers() {
         moviesListViewModel.parentMovieListliveData.observe(this, Observer {
-            if (movies_list_recyclerView.isEmpty() || moviesList_item_recyclerView.isEmpty())
+            if (movies_list_recyclerView.isEmpty() || moviesList_item_recyclerView.isEmpty()) {
                 binding.data = GenreRecyclerViewAdapter(it)
+            }
         })
-    }
 
-    override fun onResume() {
-        super.onResume()
+        moviesListViewModel.isloading.observe(this, Observer {
+            if (it) {
+                binding.pbMoviesList?.visible()
+                binding.clMoviesList?.gone()
+            } else {
+                binding.pbMoviesList?.gone()
+                binding.clMoviesList?.visible()
+            }
+        })
     }
 
 }
