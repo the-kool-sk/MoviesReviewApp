@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 object Repository {
 
-    suspend fun fetchList(map: HashMap<String, String>,
+    suspend fun fetchList(map: HashMap<String, Any>,
                           mApplication: Application): MoviesListResponseModel? {
         var moviesListResponseModel: MoviesListResponseModel? = null
 

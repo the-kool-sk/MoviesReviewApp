@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.squats.moviesapp.MainActivity
 import com.squats.moviesapp.R
 import com.squats.moviesapp.adapters.GenreRecyclerViewAdapter
+import com.squats.moviesapp.adapters.MoviesRecyclerViewAdapter
 import com.squats.moviesapp.databinding.FragmentMoviesListBinding
 import com.squats.moviesapp.extentionfunctions.dpToPx
 import com.squats.moviesapp.extentionfunctions.gone
@@ -55,8 +56,6 @@ class MoviesListFragment : Fragment() {
             }
         }
         callback.isEnabled = true
-
-//        connectionLiveData = ConnectionLiveData(activity!!.applicationContext)
         observeNetworkConnection()
         return binding.root
     }
@@ -77,7 +76,6 @@ class MoviesListFragment : Fragment() {
     }
 
     private fun observeNetworkConnection() {
-
         (activity as MainActivity).isConnected.observe(this, Observer {
             if (it && !isCalledFromOnCreated) {
                 downloadList()
@@ -85,31 +83,22 @@ class MoviesListFragment : Fragment() {
                 isCalledFromOnCreated = false
             }
         })
-//        connectionLiveData.observe(this, Observer { isConnected ->
-//            isConnected?.let {
-//                if (it && !isCalledFromOnCreated) {
-//                    downloadList()
-//                } else {
-//                    isCalledFromOnCreated = false
-//                }
-//            }
-//        })
     }
 
     private fun initObservers() {
         moviesListViewModel.parentMovieListliveData.observe(this, Observer {
             if (movies_list_recyclerView.isEmpty() || moviesList_item_recyclerView.isEmpty()) {
-                binding.data = GenreRecyclerViewAdapter(it)
+                binding.data = MoviesRecyclerViewAdapter(it)
             }
         })
 
         moviesListViewModel.isloading.observe(this, Observer {
             if (it) {
                 binding.pbMoviesList?.visible()
-                binding.clMoviesList?.gone()
+                binding.srlMoviesList?.gone()
             } else {
                 binding.pbMoviesList?.gone()
-                binding.clMoviesList?.visible()
+                binding.srlMoviesList?.visible()
             }
         })
     }

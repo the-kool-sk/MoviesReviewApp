@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.squats.moviesapp.adapters.GenreRecyclerViewAdapter" />
+            type="com.squats.moviesapp.adapters.MoviesRecyclerViewAdapter" />
     </data>
 
     <RelativeLayout
@@ -22,8 +22,8 @@
             android:layout_centerInParent="true" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_movies_list"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_movies_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="15dp"
+                android:padding="8dp"
                 app:adapter="@{data}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -42,8 +42,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="5"
-                tools:listitem="@layout/movies_list_item" />
+                tools:listitem="@layout/movie_list_item" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </RelativeLayout>
 </layout>

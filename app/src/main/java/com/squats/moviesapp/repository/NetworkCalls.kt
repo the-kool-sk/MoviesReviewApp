@@ -8,7 +8,7 @@ import com.squats.moviesapp.screens.model.MoviesListResponseModel
 
 object NetworkCalls {
 
-    suspend fun getList(map:HashMap<String,String>,application: Application): MoviesListResponseModel
+    suspend fun getList(map:HashMap<String,Any>,application: Application): MoviesListResponseModel
     {
         return RetrofitClient.getRetrofitClient(application).getMoviesByGenre(map)
     }

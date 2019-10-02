@@ -16,7 +16,7 @@ interface EndPoints {
     suspend fun getGenreList(request: RequestModel): ArrayList<MovieListResponseModel>*/
 
     @GET("/?")
-    suspend fun getMoviesByGenre(@QueryMap map:HashMap<String,String>): MoviesListResponseModel
+    suspend fun getMoviesByGenre(@QueryMap map:HashMap<String,Any>): MoviesListResponseModel
 
     @GET("/?")
     suspend fun getMovieDetails(@QueryMap map:HashMap<String,String>): MovieDetails
