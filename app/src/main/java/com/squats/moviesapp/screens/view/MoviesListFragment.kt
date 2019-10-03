@@ -2,31 +2,31 @@ package com.squats.moviesapp.screens.view
 
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.squats.moviesapp.MainActivity
 import com.squats.moviesapp.R
-import com.squats.moviesapp.adapters.GenreRecyclerViewAdapter
 import com.squats.moviesapp.adapters.MoviesRecyclerViewAdapter
 import com.squats.moviesapp.databinding.FragmentMoviesListBinding
 import com.squats.moviesapp.extentionfunctions.dpToPx
 import com.squats.moviesapp.extentionfunctions.gone
 import com.squats.moviesapp.extentionfunctions.toast
 import com.squats.moviesapp.extentionfunctions.visible
+import com.squats.moviesapp.screens.model.MoviePosterDetailsResponseModel
 import com.squats.moviesapp.screens.viewmodel.MoviesListViewModel
 import com.squats.moviesapp.utility.MovieItemDecoration
-import kotlinx.android.synthetic.main.fragment_movies_list.*
-import kotlinx.android.synthetic.main.movies_list_item.*
 import kotlinx.coroutines.launch
+
 
 class MoviesListFragment : Fragment() {
 
@@ -35,6 +35,9 @@ class MoviesListFragment : Fragment() {
     //    private lateinit var connectionLiveData: ConnectionLiveData
     private var exit = false
     private var isCalledFromOnCreated = false
+    var isLoading = false
+    private var page = 1
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -56,29 +59,30 @@ class MoviesListFragment : Fragment() {
             }
         }
         callback.isEnabled = true
+        binding.data = MoviesRecyclerViewAdapter(moviesListViewModel.parentMovieList)
         observeNetworkConnection()
         return binding.root
     }
 
-    private fun downloadList() {
-        if (movies_list_recyclerView.isEmpty() || moviesList_item_recyclerView.isEmpty()) {
-            moviesListViewModel.getMoviesByGener()
-        }
+    private fun downloadList(page: Int) {
+//        if (binding.moviesListRecyclerView.isEmpty()) {
+        moviesListViewModel.getMoviesByGener(page)
+//        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        movies_list_recyclerView.layoutManager = LinearLayoutManager(activity)
-        movies_list_recyclerView.addItemDecoration(MovieItemDecoration(activity!!.dpToPx(5)))
+        binding.moviesListRecyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.moviesListRecyclerView.addItemDecoration(MovieItemDecoration(activity!!.dpToPx(5)))
         initObservers()
-        downloadList()
+        downloadList(page)
         isCalledFromOnCreated = true
     }
 
     private fun observeNetworkConnection() {
         (activity as MainActivity).isConnected.observe(this, Observer {
             if (it && !isCalledFromOnCreated) {
-                downloadList()
+                downloadList(page)
             } else {
                 isCalledFromOnCreated = false
             }
@@ -87,20 +91,69 @@ class MoviesListFragment : Fragment() {
 
     private fun initObservers() {
         moviesListViewModel.parentMovieListliveData.observe(this, Observer {
-            if (movies_list_recyclerView.isEmpty() || moviesList_item_recyclerView.isEmpty()) {
-                binding.data = MoviesRecyclerViewAdapter(it)
-            }
+//            if (binding.moviesListRecyclerView.isEmpty()) {
+            binding.data?.notifyDataSetChanged()
+            binding.srlMoviesList.isRefreshing = false
+            isLoading = false
+
+//            }
         })
 
         moviesListViewModel.isloading.observe(this, Observer {
-            if (it) {
-                binding.pbMoviesList?.visible()
-                binding.srlMoviesList?.gone()
-            } else {
-                binding.pbMoviesList?.gone()
-                binding.srlMoviesList?.visible()
+            if (page == 1) {
+                if (it) {
+                    binding.pbMoviesList?.visible()
+                    binding.srlMoviesList?.gone()
+                } else {
+                    binding.pbMoviesList?.gone()
+                    binding.srlMoviesList?.visible()
+                }
             }
         })
+
+        binding.srlMoviesList.setOnRefreshListener {
+            page = 1
+            moviesListViewModel.clearList()
+            downloadList(page)
+        }
+
+        binding.moviesListRecyclerView.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+
+                if (!isLoading) {
+                    if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == moviesListViewModel.parentMovieList.size - 1) {
+                        //bottom of list!
+                        loadMore()
+                        isLoading = true
+                    }
+                }
+            }
+        })
+    }
+
+    private fun loadMore() {
+        moviesListViewModel.parentMovieList.add(
+                MoviePosterDetailsResponseModel(
+                        null,
+                        null,
+                        null,
+                        null,
+                        null))
+        binding.data?.notifyItemInserted(moviesListViewModel.parentMovieList.size - 1)
+
+        val handler = Handler()
+        handler.postDelayed(Runnable {
+            moviesListViewModel.parentMovieList.removeAt(moviesListViewModel.parentMovieList.size - 1)
+            val scrollPosition = moviesListViewModel.parentMovieList.size
+            binding.data?.notifyItemRemoved(scrollPosition)
+            page++
+            downloadList(page)
+        }, 2000)
+
+
     }
 
 }

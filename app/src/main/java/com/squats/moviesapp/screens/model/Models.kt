@@ -1,12 +1,5 @@
 package com.squats.moviesapp.screens.model
 
-import android.media.Rating
-import android.R.attr.country
-import android.R.attr.country
-
-
-
-
 data class RequestModel(val emailId: String, val password: String)
 
 data class MoviesListResponseModel(
@@ -16,11 +9,11 @@ data class MoviesListResponseModel(
 )
 
 data class MoviePosterDetailsResponseModel(
-    val Title: String,
-    val Year: String,
-    val imdbID: String,
-    val Type: String,
-    val Poster: String
+    val Title: String?,
+    val Year: String?,
+    val imdbID: String?,
+    val Type: String?,
+    val Poster: String?
 )
 
 data class MovieListResponseModel(
